@@ -1,3 +1,3 @@
-module github.com/metocean/tools-go
+module github.com/SergeiMelman/tools-go
 
 go 1.13
