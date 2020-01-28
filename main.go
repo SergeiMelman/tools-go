@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/metocean/tools-go/mlog"
+	"github.com/SergeiMelman/tools-go/mlog"
 )
 
 func main() {
