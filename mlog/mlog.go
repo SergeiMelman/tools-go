@@ -15,7 +15,7 @@ func FuncName() string {
 	longFuncName := runtime.FuncForPC(pc).Name()
 	funcname := longFuncName[strings.Index(longFuncName, ".")+1:] // skip package name
 	_, filename := filepath.Split(file)                           // no need dir
-	return fmt.Sprint(filename, ":", line, ":", funcname)
+	return fmt.Sprint(filename, ":", funcname, ":", line)
 }
 
 // LogError -
