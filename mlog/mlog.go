@@ -38,7 +38,7 @@ func LogIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	log.Println(FuncName() + ": err: " + fmt.Sprint(a...))
+	log.Println(FuncName() + ": err: " + err.Error() + fmt.Sprint(a...))
 }
 
 // LogFatalIfErr -
@@ -46,6 +46,6 @@ func LogFatalIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	log.Println(FuncName() + ": err: " + fmt.Sprint(a...))
+	log.Println(FuncName() + ": err: " + err.Error() + fmt.Sprint(a...))
 	os.Exit(1)
 }
