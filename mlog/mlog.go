@@ -11,16 +11,20 @@ import (
 
 // FuncName -
 func FuncName() string {
-	pc, file, line, _ := runtime.Caller(2)
+	return funcName(2)
+}
+
+func funcName(l int) string {
+	pc, file, line, _ := runtime.Caller(l)
 	longFuncName := runtime.FuncForPC(pc).Name()
 	funcname := longFuncName[strings.Index(longFuncName, ".")+1:] // skip package name
 	_, filename := filepath.Split(file)                           // no need dir
-	return fmt.Sprint(filename, ":", funcname, ":", line)
+	return fmt.Sprint(filename, ":", line, ":", funcname)
 }
 
 // LogError -
 func LogError(a ...interface{}) string {
-	res := FuncName() + ": err: " + fmt.Sprint(a...)
+	res := funcName(2) + ": err: " + fmt.Sprint(a...)
 	log.Println(res)
 	return res
 }
@@ -28,7 +32,7 @@ func LogError(a ...interface{}) string {
 // LogInfo -
 func LogInfo(a ...interface{}) string {
 	// It is easier to comment here if you don't need this output than commenting all thru all sourses.
-	res := FuncName() + ": info: " + fmt.Sprint(a...)
+	res := funcName(2) + ": info: " + fmt.Sprint(a...)
 	log.Print(res)
 	return res
 }
@@ -38,7 +42,8 @@ func LogIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	log.Println(FuncName() + ": err: " + err.Error() + fmt.Sprint(a...))
+	res := funcName(2) + ": err: " + fmt.Sprint(a...)
+	log.Println(res)
 }
 
 // LogFatalIfErr -
@@ -46,6 +51,7 @@ func LogFatalIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	log.Println(FuncName() + ": err: " + err.Error() + fmt.Sprint(a...))
+	res := funcName(2) + ": err: " + fmt.Sprint(a...)
+	log.Println(res)
 	os.Exit(1)
 }
