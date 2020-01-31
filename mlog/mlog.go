@@ -30,15 +30,11 @@ func LogInfo(a ...interface{}) string {
 	return res
 }
 
-func logErr(a ...interface{}) string {
-	res := funcName(3) + ": err: " + fmt.Sprint(a...)
-	log.Println(res)
-	return res
-}
-
 // LogError -
 func LogError(a ...interface{}) string {
-	return logErr(a...)
+	res := funcName(2) + ":err:" + fmt.Sprint(a...)
+	log.Println(res)
+	return res
 }
 
 // LogIfErr -
@@ -46,7 +42,8 @@ func LogIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	logErr(err, a)
+	res := funcName(2) + ":err:" + err.Error() + ":" + fmt.Sprint(a...)
+	log.Println(res)
 }
 
 // LogFatalIfErr -
@@ -54,6 +51,7 @@ func LogFatalIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	logErr(err, a)
+	res := funcName(2) + ":err:" + err.Error() + ":" + fmt.Sprint(a...)
+	log.Println(res)
 	os.Exit(1)
 }
