@@ -22,13 +22,6 @@ func funcName(l int) string {
 	return fmt.Sprint(filename, ":", line, ":", funcname)
 }
 
-// LogError -
-func LogError(a ...interface{}) string {
-	res := funcName(2) + ": err: " + fmt.Sprint(a...)
-	log.Println(res)
-	return res
-}
-
 // LogInfo -
 func LogInfo(a ...interface{}) string {
 	// It is easier to comment here if you don't need this output than commenting all thru all sourses.
@@ -37,13 +30,23 @@ func LogInfo(a ...interface{}) string {
 	return res
 }
 
+func logErr(a ...interface{}) string {
+	res := funcName(3) + ": err: " + fmt.Sprint(a...)
+	log.Println(res)
+	return res
+}
+
+// LogError -
+func LogError(a ...interface{}) string {
+	return logErr(a...)
+}
+
 // LogIfErr -
 func LogIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	res := funcName(2) + ": err: " + fmt.Sprint(a...)
-	log.Println(res)
+	logErr(err, a)
 }
 
 // LogFatalIfErr -
@@ -51,7 +54,6 @@ func LogFatalIfErr(err error, a ...interface{}) {
 	if err == nil {
 		return
 	}
-	res := funcName(2) + ": err: " + fmt.Sprint(a...)
-	log.Println(res)
+	logErr(err, a)
 	os.Exit(1)
 }
